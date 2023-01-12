@@ -1,0 +1,5 @@
+require("turbolinks").start()
+require("jquery")
+require("bootstrap")
+require("packs/appointment.js")
+require("bootstrap-datepicker")

@@ -6,9 +6,15 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
   </head>
 
   <body>
+    <% flash.each do |type, msg| %>
+      <div>
+        <%= msg %>
+      </div>
+    <% end %>
     <% if user_signed_in? %>
       <%= button_to "logout", destroy_user_session_path, method: :delete  %>
     <% end %>

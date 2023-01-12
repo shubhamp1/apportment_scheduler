@@ -1,0 +1,32 @@
+<table class="table-striped table table-bordered">
+  <tr>
+    <th>Patient</th>
+    <th>Doctor</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Actions</th>
+    <th></th>
+  </tr>
+  <% @appointments.each do |appointment| %>
+    <tr>
+      <td><%= appointment.patient.first_name %></td>
+      <td><%= appointment.doctor.name %></td>
+      <td><%= appointment.date %></td>
+      <td><%= appointment.time.strftime("%I:%M %p") %></td>
+      <td>
+        <% if false %>
+        <% if appointment.status == 'waiting' && appointment.patient == current_user %>
+          <%= link_to "confirm",  confirm_appointment_path(appointment.id), class:"btn btn-primary" %>
+        <% end %>
+        <% if appointment.date >= Date.today and (appointment.doctor.user == current_user or current_user.has_role? :super_admin) and appointment.time.strftime("%I:%M %p") > Time.now.strftime("%I:%M %p") %>
+          <%= link_to "edit",  edit_appointment_path(appointment.id), class:"btn btn-primary" %>
+          <%= link_to "cancel",  cancel_appointment_appointment_path(appointment.id), method: :delete, class:"btn btn-primary" %>
+        <% elsif appointment.date > Date.today and appointment.patient == current_user %>
+          <%= link_to "cancel",  cancel_appointment_appointment_path(appointment.id), method: :delete, class:"btn btn-primary" %>
+        <% end %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+

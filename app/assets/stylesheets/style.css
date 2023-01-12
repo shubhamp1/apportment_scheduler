@@ -1,0 +1,18 @@
+.datepicker tr {
+  color: black;
+}
+
+.datepicker td {
+  color: black;
+  background-color: white;
+  background-image: linear-gradient(to bottom, #0088cc, #c7d3eb);
+  height: auto;
+  width: auto;
+}
+
+.datepicker .disabled {
+  background-color: #f5f5f5;
+  background-image: none;
+  color: #999999;
+  cursor: not-allowed;
+}

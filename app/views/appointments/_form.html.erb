@@ -1,0 +1,22 @@
+<%= javascript_pack_tag 'datepicker' %>
+
+<%= form_with model:@appointment, local:true do |form|%>
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.text_field :date, class: "datepicker", id:"datepicker", autocomplete: 'off', placeholder: 'select date first', required: true %> 
+  </div>
+  <div>
+    <%= form.label :time %>
+    <%= form.text_field :time, class: "timepicker", id: "timepicker", autocomplete: 'off', placeholder: 'then select time', required: true %>
+  </div>
+  <%= form.text_field :patient_id, value: current_user.id , id: "patient_id" ,type:"hidden"%>
+  <%= form.text_field :doctor_id, value: @doctor.id , id: "doctor_id" ,type:"hidden"%>
+  <%= form.text_field :disabled_days, value: @disabled_days ,id: "disabled_days",type: "hidden"%>
+  <%= form.text_field :slot_range, value: @availability.slot_range ,id: "slot_range",type: "hidden"%>
+  <%= form.text_field :start_time, value: @availability.start_time.strftime("%I:%M %p") ,id: "start_time",type: "hidden"%>
+  <%= form.text_field :end_time, value: @availability.end_time.strftime("%I:%M %p") ,id: "end_time",type: "hidden"%>
+  <%= form.submit "Book"%>
+<% end %>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.js"></script>
