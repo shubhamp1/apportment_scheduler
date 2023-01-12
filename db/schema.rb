@@ -10,10 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_10_192516) do
+ActiveRecord::Schema.define(version: 2023_01_12_003144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "appointments", force: :cascade do |t|
+    t.bigint "patient_id", null: false
+    t.bigint "doctor_id", null: false
+    t.date "date"
+    t.time "time"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
+    t.index ["patient_id"], name: "index_appointments_on_patient_id"
+  end
+
+  create_table "availabilities", force: :cascade do |t|
+    t.bigint "doctor_id", null: false
+    t.integer "start_day"
+    t.integer "end_day"
+    t.time "start_time"
+    t.time "end_time"
+    t.integer "slot_range"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["doctor_id"], name: "index_availabilities_on_doctor_id"
+  end
+
+  create_table "doctors", force: :cascade do |t|
+    t.string "name"
+    t.bigint "user_id", null: false
+    t.integer "min_fees"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_doctors_on_user_id"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string "name"
@@ -48,4 +82,7 @@ ActiveRecord::Schema.define(version: 2023_01_10_192516) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "appointments", "doctors"
+  add_foreign_key "availabilities", "doctors"
+  add_foreign_key "doctors", "users"
 end
