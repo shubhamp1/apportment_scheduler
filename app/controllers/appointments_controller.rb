@@ -12,11 +12,11 @@ class AppointmentsController < ApplicationController
 
   def create
     appointment = Appointment.new appointment_params
-    if appointment.save
-      flash[:errors] = 'Your appointment has been boooked'
-    else
-      flash[:errors] = appointment.errors.full_messages
-    end
+    flash[:errors] = if appointment.save
+                       'Your appointment has been boooked'
+                     else
+                       appointment.errors.full_messages
+                     end
     redirect_to home_index_path, alert: appointment.errors.full_messages
   end
 
@@ -32,7 +32,7 @@ class AppointmentsController < ApplicationController
     @appointment.each do |appointment|
       @disabled_slots << [appointment.time.strftime('%I:%M %p'),
                           (appointment.time + (appointment.doctor
-                            .availability.slot_range - 1).minute)
+                            .availability.slot_range - 1).minute)  #ask this question to prince
                          .strftime('%I:%M %p')]
     end
     respond_to do |format|
@@ -41,8 +41,8 @@ class AppointmentsController < ApplicationController
   end
 
   private
+
   def appointment_params
     params.require(:appointment).permit(:doctor_id, :patient_id, :date, :time)
   end
-
 end

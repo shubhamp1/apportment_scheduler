@@ -1,0 +1,29 @@
+<% if @availability.present? %>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Start Day</th>
+        <th>End Day</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+        <th>Slot Range(minutes)</th>
+        <th>Show Appointments</th>
+        <th>Edit Availability</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="text-center"><%= @availability.start_day %></td>
+        <td class="text-center"><%= @availability.end_day %></td>
+        <td class="text-center"><%= @availability.start_time.strftime("%H:%M") %></td>
+        <td class="text-center"><%= @availability.end_time.strftime("%H:%M") %></td>
+        <td class="text-center"><%= @availability.slot_range %></td>
+        <td><%= link_to 'show appointments', appointment_path(@availability.doctor.id), class:"btn btn-primary" %></td>
+        <td><%= link_to 'Edit Availability', edit_availability_path(current_user.doctor.availability.id), class:"btn btn-primary" %></td>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <h1>No Doctors Found!!!</h1>
+  <p><%= link_to 'Create Availability', new_availability_path(current_user.doctor.id), class:"btn btn-primary" %></p>
+<% end %>

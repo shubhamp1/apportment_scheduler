@@ -1,0 +1,28 @@
+  <%= form_with model: @availability, local:true do |form| %>
+    <div class="field">
+      <%= form.label :start_day %>
+      <%= form.select(:start_day, options_for_select([:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday], @availability.start_day)) %>
+    </div>
+    <div class="field">
+      <%= form.label :end_day %>
+      <%= form.select(:end_day, options_for_select([:sunday, :monday, :tuesday, :wednesday, :thursday, :friday, :saturday], @availability.end_day))  %>
+    </div>
+    <div class="field">
+      <%= form.label :start_time %>
+      <%= form.time_field :start_time, class: "form-control", placeholder: "start_time" %>
+    </div>
+    <div class="field">
+      <%= form.label :end_time %>
+      <%= form.time_field :end_time, class: "form-control", placeholder: "end_time" %>
+    </div>
+    <div class="field">
+      <%= form.label :slot_range %>
+      <%= form.number_field :slot_range, class: "form-control", placeholder: "slot_range(minutes)" %>
+    </div>
+
+    <div class="actions" , class="btn btn--radius-2 btn--red">
+      <%= form.submit%>
+    </div>
+  <% end %>
+
+ 

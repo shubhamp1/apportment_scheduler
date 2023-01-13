@@ -1,0 +1,30 @@
+<% if @doctors.present? %>
+  <table class="table table-striped table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Days from - to</th>
+        <th>Time from - to</th>
+        <th>Slot Range(minutes)</th>
+        <th>Book Appointment</th>
+        <th>Appointments</th>
+        <th>Show Appointments</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @doctors.each do |doctor| %>
+        <tr>
+          <td class="text-center"><%= doctor.name %></td>
+          <td class="text-center"><%= doctor.availability.start_day %> - <%= doctor.availability.end_day %></td>
+          <td class="text-center"><%= doctor.availability.start_time.strftime("%H:%M") %> - <%= doctor.availability.end_time.strftime("%H:%M") %></td>
+          <td class="text-center"><%= doctor.availability.slot_range %></td>
+          <td><%= link_to 'book appointment', new_appointment_path(id: doctor.id), class:"btn btn-primary" %></td>
+          <td class="text-center"><%= doctor.appointments.count%></td>
+          <td><%= link_to 'show appointment', appointment_path(doctor.id), class:"btn btn-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <h1>No Doctors Found!!!</h1>
+<% end %>
