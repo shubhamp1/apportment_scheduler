@@ -1,4 +1,5 @@
 class AvailabilitiesController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_availability, only: %i[edit update]
 
   def edit; end
@@ -6,7 +7,7 @@ class AvailabilitiesController < ApplicationController
   def update
     if @availability
       if @availability.update(availability_params)
-        flash[:errors] = 'Availability has been updated'
+        flash[:notice] = 'Availability has been updated'
       else
         flash[:errors] = @availability.errors.full_messages
       end

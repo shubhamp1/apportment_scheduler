@@ -7,7 +7,11 @@
   </div>
   <div>
     <%= form.label :time %>
-    <%= form.text_field :time, class: "timepicker", id: "timepicker", autocomplete: 'off', placeholder: 'then select time', required: true %>
+    <% if form.object.new_record? %>
+      <%= form.text_field :time, class: "timepicker", id: "timepicker", autocomplete: 'off', placeholder: 'then select time', required: true %>
+    <% else %>
+        <%= form.text_field :time, class: "timepicker", id: "timepicker", autocomplete: 'off', placeholder: 'then select time', required: true, value: form.object.time.strftime('%H:%M') %>
+    <% end %>
   </div>
   <%= form.text_field :patient_id, value: current_user.id , id: "patient_id" ,type:"hidden"%>
   <%= form.text_field :doctor_id, value: @doctor.id , id: "doctor_id" ,type:"hidden"%>

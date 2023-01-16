@@ -7,9 +7,8 @@ Rails.application.routes.draw do
   get 'home/index'
 
   resources :appointments do
-    collection do
-      get :find_appointment
-    end
+    get :find_appointment, on: :collection
+    delete :cancel_appointment, on: :member
   end
 
   resources :availabilities
